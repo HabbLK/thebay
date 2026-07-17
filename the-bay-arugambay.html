@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bay — Arugam Bay, Sri Lanka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#132A2E;
+    --deep:#0E3B43;
+    --sand:#F3ECDD;
+    --foam:#FBF8F1;
+    --gold:#D9A441;
+    --palm:#3E5C4A;
+    --line: rgba(19,42,46,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--foam);
+    color:var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 32px;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(251,248,241,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px; max-width:1120px; margin:0 auto;
+  }
+  .logo{font-family:'Fraunces', serif; font-size:22px; font-weight:700; letter-spacing:0.01em;}
+  .logo em{font-style:italic; color:var(--gold); font-weight:500;}
+  .navlinks{display:flex; gap:34px; font-size:14px; letter-spacing:0.02em;}
+  .navlinks a{position:relative; padding:4px 0; opacity:0.85;}
+  .navlinks a:hover{opacity:1;}
+  .navlinks a::after{
+    content:''; position:absolute; bottom:0; left:0; width:0; height:1px; background:var(--ink);
+    transition:width .25s ease;
+  }
+  .navlinks a:hover::after{width:100%;}
+  .navcta{
+    background:var(--ink); color:var(--foam); padding:10px 20px; border-radius:2px;
+    font-size:13px; letter-spacing:0.04em; text-transform:uppercase;
+  }
+  .navcta:hover{background:var(--deep);}
+  @media(max-width:760px){ .navlinks{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    background:
+      linear-gradient(180deg, rgba(14,59,67,0.15) 0%, rgba(14,59,67,0.55) 78%, rgba(14,59,67,0.85) 100%),
+      var(--deep);
+    color:var(--foam);
+    padding-top:110px;
+  }
+  .hero-photo{
+    position:absolute; inset:0; z-index:-1;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(217,164,65,0.25), transparent 45%),
+      linear-gradient(135deg, #0E3B43 0%, #16515C 45%, #1F6E71 100%);
+  }
+  .photo-slot{
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    border:1px dashed rgba(251,248,241,0.4);
+    color:rgba(251,248,241,0.6);
+    font-size:12px; letter-spacing:0.06em; text-transform:uppercase;
+    font-family:'Space Grotesk', sans-serif;
+  }
+  .hero .photo-slot{position:absolute; inset:18px; border-radius:4px;}
+
+  .swell{
+    position:absolute; left:0; right:0; bottom:0; height:120px; z-index:1;
+    opacity:0.9;
+  }
+
+  .hero-content{
+    position:relative; z-index:2;
+    max-width:1120px; margin:0 auto; width:100%;
+    padding:0 32px 90px;
+  }
+  .eyebrow{
+    font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold);
+    margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:''; width:26px; height:1px; background:var(--gold);}
+  .hero h1{
+    font-size:clamp(48px, 8vw, 96px);
+    line-height:0.98;
+    max-width:820px;
+  }
+  .hero h1 em{font-style:italic; font-weight:500; color:var(--gold);}
+  .hero p.sub{
+    max-width:460px; margin-top:22px; font-size:16px; color:rgba(251,248,241,0.82);
+  }
+  .hero-actions{margin-top:36px; display:flex; gap:16px; flex-wrap:wrap;}
+  .btn{
+    display:inline-block; padding:14px 28px; font-size:13px; letter-spacing:0.05em;
+    text-transform:uppercase; border-radius:2px; transition:all .2s ease;
+  }
+  .btn-primary{background:var(--gold); color:var(--ink);}
+  .btn-primary:hover{background:#c79333;}
+  .btn-ghost{border:1px solid rgba(251,248,241,0.5); color:var(--foam);}
+  .btn-ghost:hover{border-color:var(--foam); background:rgba(251,248,241,0.08);}
+
+  /* tide strip */
+  .tide-strip{
+    position:relative; z-index:2;
+    border-top:1px solid rgba(251,248,241,0.25);
+    display:flex; overflow-x:auto;
+  }
+  .tide-item{
+    flex:1; min-width:150px; padding:16px 32px; border-right:1px solid rgba(251,248,241,0.15);
+    font-size:12px; letter-spacing:0.04em; text-transform:uppercase; color:rgba(251,248,241,0.75);
+  }
+  .tide-item b{display:block; font-family:'Fraunces', serif; font-size:20px; font-weight:600; color:var(--foam); text-transform:none; letter-spacing:0; margin-top:4px;}
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{padding:110px 0;}
+  .section-head{max-width:640px; margin-bottom:64px;}
+  .kicker{font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:var(--palm); margin-bottom:14px;}
+  .section-head h2{font-size:clamp(32px, 4vw, 48px); line-height:1.08;}
+
+  /* ---------- ABOUT / SPLIT ---------- */
+  .split{
+    display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;
+  }
+  .split .photo-slot{aspect-ratio:4/5; border:1px dashed var(--line); background:var(--sand); color:#7c7264;}
+  .about-copy p{font-size:17px; color:#334; opacity:0.85; margin-top:18px; max-width:460px;}
+  .stat-row{display:flex; gap:40px; margin-top:40px;}
+  .stat b{display:block; font-family:'Fraunces', serif; font-size:34px; font-weight:700;}
+  .stat span{font-size:12px; letter-spacing:0.05em; text-transform:uppercase; color:#667; }
+  @media(max-width:820px){ .split{grid-template-columns:1fr;} }
+
+  /* ---------- ROOMS ---------- */
+  .rooms-band{background:var(--deep); color:var(--foam);}
+  .rooms-band .kicker{color:var(--gold);}
+  .room-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:rgba(251,248,241,0.15); margin-top:20px;}
+  .room-card{background:var(--deep); padding:36px 30px 30px; position:relative;}
+  .room-card .photo-slot{aspect-ratio:16/10; margin-bottom:22px; border-color:rgba(251,248,241,0.3); color:rgba(251,248,241,0.5);}
+  .room-card h3{font-size:22px; margin-bottom:8px;}
+  .room-card p{font-size:14px; color:rgba(251,248,241,0.7); margin-bottom:16px;}
+  .room-price{font-size:13px; letter-spacing:0.04em; text-transform:uppercase; color:var(--gold); display:flex; justify-content:space-between; border-top:1px solid rgba(251,248,241,0.2); padding-top:14px;}
+  @media(max-width:820px){ .room-grid{grid-template-columns:1fr;} }
+
+  /* ---------- AMENITIES ---------- */
+  .amenity-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .amenity{background:var(--foam); padding:34px 26px;}
+  .amenity .num{font-family:'Fraunces', serif; font-style:italic; color:var(--gold); font-size:14px; margin-bottom:16px; display:block;}
+  .amenity h3{font-size:17px; margin-bottom:8px;}
+  .amenity p{font-size:14px; color:#556; opacity:0.85;}
+  @media(max-width:820px){ .amenity-grid{grid-template-columns:1fr 1fr;} }
+  @media(max-width:520px){ .amenity-grid{grid-template-columns:1fr;} }
+
+  /* ---------- LOCATION ---------- */
+  .loc-wrap{display:grid; grid-template-columns:1.1fr 0.9fr; gap:64px;}
+  .loc-list{list-style:none; margin-top:24px;}
+  .loc-list li{
+    display:flex; justify-content:space-between; padding:16px 0; border-bottom:1px solid var(--line);
+    font-size:15px;
+  }
+  .loc-list li span:first-child{color:var(--ink);}
+  .loc-list li span:last-child{color:#889; font-size:13px; letter-spacing:0.03em; text-transform:uppercase;}
+  .loc-wrap .photo-slot{aspect-ratio:3/4; border:1px dashed var(--line); background:var(--sand); color:#7c7264;}
+  @media(max-width:820px){ .loc-wrap{grid-template-columns:1fr;} }
+
+  /* ---------- CTA ---------- */
+  .cta{
+    background:var(--sand); text-align:center; padding:120px 32px;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .cta h2{font-size:clamp(34px,5vw,56px); max-width:700px; margin:0 auto 30px;}
+  .cta .btn-primary{background:var(--ink); color:var(--foam);}
+  .cta .btn-primary:hover{background:var(--deep);}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:70px 0 40px; font-size:13px; color:#667;}
+  .foot-grid{display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; padding-bottom:50px; border-bottom:1px solid var(--line);}
+  .foot-grid h4{font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink); margin-bottom:16px;}
+  .foot-grid p, .foot-grid a{display:block; margin-bottom:8px; opacity:0.85;}
+  .foot-grid a:hover{opacity:1; text-decoration:underline;}
+  .foot-bottom{display:flex; justify-content:space-between; padding-top:24px; flex-wrap:wrap; gap:10px;}
+  @media(max-width:760px){ .foot-grid{grid-template-columns:1fr 1fr;} }
+
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">THE BAY <em>ARUGAM</em></div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#rooms">Rooms</a>
+      <a href="#amenities">Amenities</a>
+      <a href="#location">Location</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="navcta" href="#book">Check Rates</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-photo"><div class="photo-slot">Add photo — sunrise over Main Point, Arugam Bay</div></div>
+  <svg class="swell" viewBox="0 0 1200 120" preserveAspectRatio="none">
+    <path d="M0,60 C150,10 300,110 450,60 C600,10 750,110 900,60 C1050,10 1150,90 1200,60 L1200,120 L0,120 Z" fill="#FBF8F1" opacity="0.06"/>
+    <path d="M0,80 C150,40 300,120 450,80 C600,40 750,120 900,80 C1050,40 1150,100 1200,80 L1200,120 L0,120 Z" fill="#FBF8F1" opacity="0.1"/>
+  </svg>
+  <div class="hero-content">
+    <div class="eyebrow">Main Street · Arugam Bay · East Coast, Sri Lanka</div>
+    <h1>Sleep where the <em>swell</em><br>rolls in.</h1>
+    <p class="sub">A small beachfront hotel two hundred metres from Arugam Bay's famous point break — garden rooms, a pool to rinse the salt off, and the tide as your alarm clock.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#book">Check Availability</a>
+      <a class="btn btn-ghost" href="#rooms">View Rooms</a>
+    </div>
+  </div>
+  <div class="tide-strip">
+    <div class="tide-item">Distance to beach<b>200m</b></div>
+    <div class="tide-item">Rooms<b>18</b></div>
+    <div class="tide-item">On-site<b>Restaurant &amp; Pool</b></div>
+    <div class="tide-item">Guest rating<b>7.2 / 10</b></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap split">
+    <div class="reveal">
+      <div class="kicker">The Bay</div>
+      <h2>A local landmark on Main Street, run the way it's always been.</h2>
+      <div class="about-copy">
+        <p>The Bay sits right on Arugam Bay's Main Street, a couple of minutes' walk from the sand and close enough to the point break to hear it. Rooms open onto a garden courtyard built around the pool — the kind of place where you leave your board leaning by the door and nobody minds.</p>
+        <p>Free bikes are parked out front for the ride down to the lagoon; the kitchen turns out an easy mix of Sri Lankan, American, Chinese and Indian dishes, with vegetarian, vegan and halal options on request.</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>2★</b><span>Boutique Hotel</span></div>
+        <div class="stat"><b>1.4km</b><span>to Pasarichenai Beach</span></div>
+        <div class="stat"><b>24hr</b><span>Front Desk</span></div>
+      </div>
+    </div>
+    <div class="photo-slot reveal">Add photo — pool &amp; garden courtyard</div>
+  </div>
+</section>
+
+<section class="rooms-band" id="rooms">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">Rooms</div>
+      <h2>Simple rooms, built for salt air and early starts.</h2>
+    </div>
+    <div class="room-grid">
+      <div class="room-card reveal">
+        <div class="photo-slot">Add photo — Garden Room</div>
+        <h3>Garden Room</h3>
+        <p>Air-conditioned, private bathroom with bidet, desk and kettle. Opens onto the courtyard.</p>
+        <div class="room-price"><span>2 Guests</span><span>From $—/night</span></div>
+      </div>
+      <div class="room-card reveal">
+        <div class="photo-slot">Add photo — Terrace Room</div>
+        <h3>Terrace Room</h3>
+        <p>Same comforts as the Garden Room plus a private terrace to dry a wetsuit or watch the sunset.</p>
+        <div class="room-price"><span>2 Guests</span><span>From $—/night</span></div>
+      </div>
+      <div class="room-card reveal">
+        <div class="photo-slot">Add photo — Family Room</div>
+        <h3>Family Room</h3>
+        <p>Extra space for two adults and children, with flat-screen TV and wardrobe storage for boards and bags.</p>
+        <div class="room-price"><span>4 Guests</span><span>From $—/night</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="amenities">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">On-site</div>
+      <h2>Everything you need, nothing you don't.</h2>
+    </div>
+    <div class="amenity-grid reveal">
+      <div class="amenity"><span class="num">i</span><h3>Pool &amp; Garden</h3><p>Outdoor pool and pool bar set in a shaded courtyard garden.</p></div>
+      <div class="amenity"><span class="num">ii</span><h3>Restaurant</h3><p>Sri Lankan, American, Chinese &amp; Indian dishes, plus vegetarian, vegan and halal options.</p></div>
+      <div class="amenity"><span class="num">iii</span><h3>Free Bikes</h3><p>Complimentary bicycles for getting around town and out to the lagoon.</p></div>
+      <div class="amenity"><span class="num">iv</span><h3>Private Beach Area</h3><p>Direct access to a private stretch of Arugam Bay beach.</p></div>
+      <div class="amenity"><span class="num">v</span><h3>Free Wi-Fi</h3><p>Throughout the property, including the shared lounge.</p></div>
+      <div class="amenity"><span class="num">vi</span><h3>Laundry Service</h3><p>Daily housekeeping, laundry, dry cleaning and ironing.</p></div>
+      <div class="amenity"><span class="num">vii</span><h3>Airport &amp; Tours</h3><p>Walking tours, bike tours and local culture tours bookable at the desk.</p></div>
+      <div class="amenity"><span class="num">viii</span><h3>Free Parking</h3><p>Private on-site parking for guests arriving by car or tuk-tuk.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="location" style="background:var(--sand);">
+  <div class="wrap loc-wrap">
+    <div class="reveal">
+      <div class="kicker">Location</div>
+      <h2>60A Main Street, Arugam Bay.</h2>
+      <p style="margin-top:16px; color:#445; max-width:440px;">On the east coast of Sri Lanka, a laid-back surf town known for one of the world's best right-hand point breaks and a slow, salt-worn pace of life.</p>
+      <ul class="loc-list">
+        <li><span>Arugam Bay Beach</span><span>200m</span></li>
+        <li><span>Pasarichenai Beach</span><span>1.4km</span></li>
+        <li><span>Pottuvil Lagoon</span><span>8 min walk</span></li>
+        <li><span>Muhudu Maha Viharaya</span><span>3.5km</span></li>
+        <li><span>Kumana National Park</span><span>~30km</span></li>
+      </ul>
+    </div>
+    <div class="photo-slot reveal">Add map or aerial photo of Main Street</div>
+  </div>
+</section>
+
+<section class="cta" id="book">
+  <div class="kicker" style="justify-content:center; display:flex;">Best Rate, Direct</div>
+  <h2>Book straight with us — no middleman, no markup.</h2>
+  <a class="btn btn-primary" href="#contact">Reserve Your Room</a>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="margin-bottom:14px;">THE BAY <em>ARUGAM</em></div>
+        <p style="max-width:280px;">60A Main Street, Arugam Bay, Sri Lanka.</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="#">Phone — add number</a>
+        <a href="#">Email — add address</a>
+        <a href="#">WhatsApp — add number</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="#rooms">Rooms</a>
+        <a href="#amenities">Amenities</a>
+        <a href="#location">Location</a>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">TripAdvisor</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 The Bay, Arugam Bay. All rights reserved.</span>
+      <span>Direct bookings save you the OTA commission.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
+  }, {threshold:0.15});
+  els.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
